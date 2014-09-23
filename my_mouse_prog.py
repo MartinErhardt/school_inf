@@ -28,7 +28,7 @@ def main():
 	mouse.add_mice(young,0)
 	mouse.add_mice(adult,1)
 	mouse.add_mice(old,2)
-	print("young\tadult\told\ttotal")
+	print("young\t adult\t old\t total")
 	mouse.get_mice_older_n(steps)
 def get_in():
 	ret=0
@@ -41,18 +41,14 @@ def get_in():
 class mouse(object):
 	mice=[[],[],[]]
 	eldered_mice=[[],[],[]]
-	def __init__(self, init_status):
-		self.status=init_status
 	def get_older(self,n):
 		if self.status==2 or n >= round(len(mouse.mice[self.status])/((self.status+1)*2)):
-			del self
 			return
 		eldered_mouse=mouse.new_mouse(self.status+1)
 		mouse.eldered_mice[self.status+1].append(eldered_mouse)
-		del self
 	def reproduce_n(self,n):
 		for i in range(n):
-			new_mouse=young_mouse(0)
+			new_mouse=young_mouse()
 			mouse.mice[0].append(new_mouse)
 	@staticmethod
 	def add_mice(n, state):
@@ -61,11 +57,11 @@ class mouse(object):
 	@staticmethod
 	def new_mouse(state):
 		if not state:
-			return young_mouse(0)
+			return young_mouse()
 		elif state==1:
-			return adult_mouse(1)
+			return adult_mouse()
 		elif state==2:
-			return old_mouse(2)
+			return old_mouse()
 	@staticmethod
 	def get_mice_older():
 		for cur_mouse_list in mouse.mice:
@@ -75,7 +71,6 @@ class mouse(object):
 		for cur_mouse_list in mouse.mice:
 			for i, cur_mouse in enumerate(cur_mouse_list):
 				cur_mouse.get_older(i)
-		mouse.mice=[]
 		mouse.mice=mouse.eldered_mice[:]
 		mouse.eldered_mice=[[],[],[]]
 	@staticmethod
@@ -86,12 +81,18 @@ class mouse(object):
 	def count_mice():
 		print(len(mouse.mice[0]),'\t', len(mouse.mice[1]), '\t', len(mouse.mice[2]),'\t', len(mouse.mice[0])+len(mouse.mice[1])+len(mouse.mice[2]))
 class young_mouse(mouse):
+	def __init__(self):
+		self.status=0
 	def reproduce(self):
 		pass
 class adult_mouse(mouse):
+	def __init__(self):
+		self.status=1
 	def reproduce(self):
 		self.reproduce_n(4)
 class old_mouse(mouse):
+	def __init__(self):
+		self.status=2
 	def reproduce(self):
 		self.reproduce_n(2)
 main()
