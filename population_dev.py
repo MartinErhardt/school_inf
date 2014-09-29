@@ -26,7 +26,7 @@ def calc_year():
 		population[i]	= population[i]	  - pop_change_abs
 	population[3]	= round(population[3]*0.972) # and the others die
 def main(argv):
-	print("year\t all\t\t young\t\t adult\t\t mature\t\t old")
+	print("year\t total\t\t young\t\t adult\t\t middle-aged\t old")
 	print_pop(2005)
 	try:
 		for i in range(int(sys.argv[1])):
