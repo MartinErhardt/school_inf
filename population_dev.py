@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#    example implementation of the mouse problem
+#    example implementation of the population problem
 #    Copyright (C) 2014  martin.erhardt98@googlemail.com
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -27,11 +27,11 @@ def calc_year():
 	population[3]	= round(population[3]*0.972) # and the others die
 def main(argv):
 	print("year\t all\t\t young\t\t adult\t\t mature\t\t old")
-	print_pop(0)
+	print_pop(2005)
 	try:
 		for i in range(int(sys.argv[1])):
 			calc_year()
-			print_pop(i+1)
+			print_pop(i+2006)
 	except (IndexError, ValueError) as e:
 		print(e)
 		print("Please give an integral index as command line argument!")
