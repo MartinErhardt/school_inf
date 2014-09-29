@@ -25,11 +25,11 @@ def main():
 	old=get_in()
 	print("Enter steps: ")
 	steps=get_in()
-	mouse.add_mice(young,0)
-	mouse.add_mice(adult,1)
-	mouse.add_mice(old,2)
+	Mouse.add_mice(young,0)
+	Mouse.add_mice(adult,1)
+	Mouse.add_mice(old,2)
 	print("young\t adult\t old\t total")
-	mouse.get_mice_older_n(steps)
+	Mouse.get_mice_older_n(steps)
 def get_in():
 	ret=0
 	try:
@@ -38,61 +38,61 @@ def get_in():
 		print("no valid input, please enter an integer")
 		sys.exit(1)
 	return ret
-class mouse(object):
+class Mouse(object):
 	mice=[[],[],[]]
 	eldered_mice=[[],[],[]]
 	def get_older(self,n):
-		if self.status==2 or n >= round(len(mouse.mice[self.status])/((self.status+1)*2)):
+		if self.state==2 or n >= round(len(Mouse.mice[self.state])/((self.state+1)*2)):
 			return
-		eldered_mouse=mouse.new_mouse(self.status+1)
-		mouse.eldered_mice[self.status+1].append(eldered_mouse)
+		eldered_mouse=Mouse.new_mouse(self.state+1)
+		Mouse.eldered_mice[self.state+1].append(eldered_mouse)
 	def reproduce_n(self,n):
 		for i in range(n):
-			new_mouse=young_mouse()
-			mouse.mice[0].append(new_mouse)
+			new_mouse=YoungMouse()
+			Mouse.mice[0].append(new_mouse)
 	@staticmethod
 	def add_mice(n, state):
 		for i in range(n):
-			mouse.mice[state].append(mouse.new_mouse(state))
+			Mouse.mice[state].append(Mouse.new_mouse(state))
 	@staticmethod
 	def new_mouse(state):
 		if not state:
-			return young_mouse()
+			return YoungMouse()
 		elif state==1:
-			return adult_mouse()
+			return AdultMouse()
 		elif state==2:
-			return old_mouse()
+			return OldMouse()
 	@staticmethod
 	def get_mice_older():
-		for cur_mouse_list in mouse.mice:
+		for cur_mouse_list in Mouse.mice:
 			for cur_mouse in cur_mouse_list:
 				cur_mouse.reproduce()
-		mouse.count_mice()
-		for cur_mouse_list in mouse.mice:
+		Mouse.count_mice()
+		for cur_mouse_list in Mouse.mice:
 			for i, cur_mouse in enumerate(cur_mouse_list):
 				cur_mouse.get_older(i)
-		mouse.mice=mouse.eldered_mice[:]
-		mouse.eldered_mice=[[],[],[]]
+		Mouse.mice=Mouse.eldered_mice[:]
+		Mouse.eldered_mice=[[],[],[]]
 	@staticmethod
 	def get_mice_older_n(gens):
 		for i in range(gens):
-			mouse.get_mice_older()
+			Mouse.get_mice_older()
 	@staticmethod
 	def count_mice():
-		print(len(mouse.mice[0]),'\t', len(mouse.mice[1]), '\t', len(mouse.mice[2]),'\t', len(mouse.mice[0])+len(mouse.mice[1])+len(mouse.mice[2]))
-class young_mouse(mouse):
+		print(len(Mouse.mice[0]),'\t', len(Mouse.mice[1]), '\t', len(Mouse.mice[2]),'\t', len(Mouse.mice[0])+len(Mouse.mice[1])+len(Mouse.mice[2]))
+class YoungMouse(Mouse):
 	def __init__(self):
-		self.status=0
+		self.state=0
 	def reproduce(self):
 		pass
-class adult_mouse(mouse):
+class AdultMouse(Mouse):
 	def __init__(self):
-		self.status=1
+		self.state=1
 	def reproduce(self):
 		self.reproduce_n(4)
-class old_mouse(mouse):
+class OldMouse(Mouse):
 	def __init__(self):
-		self.status=2
+		self.state=2
 	def reproduce(self):
 		self.reproduce_n(2)
-main()
+if  __name__ =='__main__':main()
