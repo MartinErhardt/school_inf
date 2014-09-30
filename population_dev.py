@@ -20,7 +20,7 @@ population_change=(0.066,0.029,0.066)		# these are some constants
 def calc_year():
 	global population # I know, what I'm doing python
 	helper	= round(population[1]*0.02) # some get born
-	for i in range(0,len(population)-1,1):	# ,someget older
+	for i in reversed(range(0,len(population)-1,1)):	# ,someget older
 		pop_change_abs		= round(population[i]*population_change[i]) # (in absolute numbers)
 		population[i+1]	+= pop_change_abs
 		population[i]	-= pop_change_abs
