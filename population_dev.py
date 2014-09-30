@@ -19,12 +19,13 @@ population=[12300000,39100000,15500000,16300000]
 population_change=(0.066,0.029,0.066)		# these are some constants
 def calc_year():
 	global population # I know, what I'm doing python
-	population[0]	= population[0]+round(population[1]*0.02) # some get born
+	helper	= round(population[1]*0.02) # some get born
 	for i in range(0,len(population)-1,1):	# ,someget older
 		pop_change_abs		= round(population[i]*population_change[i]) # (in absolute numbers)
-		population[i+1]	= population[i+1] + pop_change_abs
-		population[i]	= population[i]	  - pop_change_abs
+		population[i+1]	+= pop_change_abs
+		population[i]	-= pop_change_abs
 	population[3]	= round(population[3]*0.972) # and the others die
+	population[0] += helper
 def main(argv):
 	print("year\t total\t\t young\t\t adult\t\t middle-aged\t old")
 	print_pop(2005)
