@@ -17,28 +17,24 @@
 import sys
 def main():
 	young, adult, old, steps=0,0,0,0
-	print("Enter number of young mice: ")
-	young=get_in()
-	print("Enter number of adult mice: ")
-	adult=get_in()
-	print("Enter number of old mice: ")
-	old=get_in()
-	print("Enter steps: ")
-	steps=get_in()
+	young=get_in("Enter number of young mice: ")
+	adult=get_in("Enter number of adult mice: ")
+	old=get_in("Enter number of old mice: ")
+	steps=get_in("Enter steps: ")
 	Mouse.add_mice(young,0)
 	Mouse.add_mice(adult,1)
 	Mouse.add_mice(old,2)
 	print("young\t adult\t old\t total")
 	Mouse.get_mice_older_n(steps)
-def get_in():
+def get_in(msg):
 	ret=0
 	try:
-		ret=int(input())
+		ret=int(input(msg))
 	except ValueError:
 		print("no valid input, please enter an integer")
 		sys.exit(1)
 	return ret
-class Mouse(object):
+class Mouse:
 	mice=[[],[],[]]
 	eldered_mice=[[],[],[]]
 	def get_older(self,n):
