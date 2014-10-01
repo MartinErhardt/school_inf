@@ -34,8 +34,7 @@ def main(argv):
 			calc_year()
 			print_pop(i+2006)
 	except (IndexError, ValueError) as e:
-		print(e)
-		print("Please give an integral index as command line argument!")
+		print(e,'\n',"Please give an integral index as command line argument!")
 def print_pop(i):
 	print(i,'\t',sum(population),'\t',population[0],'\t',population[1],'\t',population[2],'\t',population[3])
 if  __name__ =='__main__':main(sys.argv)
